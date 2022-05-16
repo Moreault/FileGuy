@@ -14,4 +14,5 @@ global using Moq;
 global using Newtonsoft.Json;
 global using ToolBX.Eloquentest;
 global using ToolBX.Eloquentest.Customizations;
+global using ToolBX.FileGuy.Newtonsoft;
 global using ToolBX.NetAbstractions.IO.Streaming;

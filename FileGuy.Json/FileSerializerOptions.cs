@@ -1,4 +1,4 @@
-﻿namespace FileGuy.Json;
+﻿namespace ToolBX.FileGuy.Json;
 
 [AutoConfig("DefaultFileSerialization")]
 public record FileSerializerOptions : FileSaveOptions

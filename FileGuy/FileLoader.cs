@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace FileGuy;
+namespace ToolBX.FileGuy;
 
 public interface IFileLoader
 {

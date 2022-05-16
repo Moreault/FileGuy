@@ -1,4 +1,7 @@
-﻿namespace FileGuy.Tests;
+﻿using ToolBX.FileGuy;
+using ToolBX.FileGuy.Resources;
+
+namespace FileGuy.Tests;
 
 [TestClass]
 public class StreamCompressorTester
@@ -48,7 +51,7 @@ public class StreamCompressorTester
 
             var memoryStream = new Mock<IMemoryStream>();
             compressor.Setup(x => x.ToMemoryStream()).Returns(memoryStream.Object);
-                
+
             //Act
             var result = Instance.Compress(stream.Object, compressionLevel);
 

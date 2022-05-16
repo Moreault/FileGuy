@@ -1,4 +1,4 @@
-﻿namespace FileGuy.Newtonsoft;
+﻿namespace ToolBX.FileGuy.Newtonsoft;
 
 [AutoConfig("DefaultFileSerialization")]
 public record FileSerializerOptions : FileSaveOptions

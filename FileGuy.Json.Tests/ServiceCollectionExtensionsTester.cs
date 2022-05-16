@@ -1,4 +1,7 @@
-﻿namespace FileGuy.Json.Tests;
+﻿using ToolBX.FileGuy;
+using ToolBX.FileGuy.Json;
+
+namespace FileGuy.Json.Tests;
 
 [TestClass]
 public class ServiceCollectionExtensionsTester

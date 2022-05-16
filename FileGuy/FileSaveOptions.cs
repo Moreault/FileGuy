@@ -1,4 +1,4 @@
-﻿namespace FileGuy;
+﻿namespace ToolBX.FileGuy;
 
 [AutoConfig("DefaultFileSaving")]
 public record FileSaveOptions

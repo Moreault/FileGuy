@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace FileGuy.Json;
+namespace ToolBX.FileGuy.Json;
 
 public static class ServiceCollectionExtensions
 {

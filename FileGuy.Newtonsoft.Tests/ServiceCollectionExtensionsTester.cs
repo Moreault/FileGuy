@@ -1,4 +1,6 @@
-﻿namespace FileGuy.Newtonsoft.Tests;
+﻿using ToolBX.FileGuy;
+
+namespace FileGuy.Newtonsoft.Tests;
 
 [TestClass]
 public class ServiceCollectionExtensionsTester

@@ -1,3 +1,6 @@
+using ToolBX.FileGuy;
+using ToolBX.FileGuy.Json;
+
 namespace FileGuy.Json.Tests;
 
 [TestClass]

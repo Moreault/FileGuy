@@ -1,4 +1,4 @@
-﻿namespace FileGuy.Newtonsoft;
+﻿namespace ToolBX.FileGuy.Newtonsoft;
 
 /// <summary>
 /// Automatically adds Newtonsoft JSON converters that use generic arguments.

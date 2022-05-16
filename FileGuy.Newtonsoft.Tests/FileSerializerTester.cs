@@ -1,3 +1,5 @@
+using ToolBX.FileGuy;
+
 namespace FileGuy.Newtonsoft.Tests;
 
 [TestClass]

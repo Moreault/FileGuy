@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Text;
 using ToolBX.Eloquentest.Extensions;
+using ToolBX.FileGuy;
+using ToolBX.FileGuy.Resources;
 
 namespace FileGuy.Tests;
 

@@ -1,4 +1,6 @@
-﻿namespace FileGuy.Json.Tests;
+﻿using ToolBX.FileGuy.Json;
+
+namespace FileGuy.Json.Tests;
 
 [AutoCustomization]
 public class FileSerializerOptionsCustomization : ICustomization
