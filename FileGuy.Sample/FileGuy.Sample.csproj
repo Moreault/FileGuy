@@ -7,4 +7,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ToolBX.AssemblyInitializer.Console" Version="1.0.0" />
+    <PackageReference Include="ToolBX.NetAbstractions" Version="1.0.2.5-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileGuy.Newtonsoft\FileGuy.Newtonsoft.csproj" />
+  </ItemGroup>
+
 </Project>

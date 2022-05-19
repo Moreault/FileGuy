@@ -4,6 +4,7 @@ public interface IFileSerializer
 {
     void Serialize<T>(T o, string filename, FileSerializerOptions? options = null);
     T Deserialize<T>(string filename, FileSerializerOptions? options = null);
+    T Decompress<T>(string filename, FileSerializerOptions? options = null);
 }
 
 [AutoInject]
@@ -33,6 +34,14 @@ public class FileSerializer : IFileSerializer
         if (string.IsNullOrWhiteSpace(filename)) throw new ArgumentNullException(nameof(filename));
         options ??= new FileSerializerOptions();
         var json = _fileLoader.LoadAsString(filename);
-        return JsonSerializer.Deserialize<T>(json, options.Serializer) ?? throw new Exception($"Could not deserialize file '{filename}'");
+        return JsonSerializer.Deserialize<T>(json, options.Serializer)!;
+    }
+
+    public T Decompress<T>(string filename, FileSerializerOptions? options = null)
+    {
+        if (string.IsNullOrWhiteSpace(filename)) throw new ArgumentNullException(nameof(filename));
+        options ??= new FileSerializerOptions();
+        var json = _fileLoader.DecompressAsString(filename);
+        return JsonSerializer.Deserialize<T>(json, options.Serializer)!;
     }
 }

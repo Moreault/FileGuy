@@ -80,7 +80,6 @@ public class FileLoader : IFileLoader
     public IStream LoadAsStream(string path)
     {
         if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
-        using var filestream = _streamFactory.FileStream(path, FileMode.Open);
-        return filestream.ToMemoryStream();
+        return _streamFactory.FileStream(path, FileMode.Open);
     }
 }

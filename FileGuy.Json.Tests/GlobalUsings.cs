@@ -10,3 +10,5 @@ global using Microsoft.VisualStudio.TestTools.UnitTesting;
 global using Moq;
 global using ToolBX.Eloquentest;
 global using ToolBX.Eloquentest.Customizations;
+global using ToolBX.FileGuy;
+global using ToolBX.FileGuy.Json;

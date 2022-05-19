@@ -1,6 +1,3 @@
-using ToolBX.FileGuy;
-using ToolBX.FileGuy.Json;
-
 namespace FileGuy.Json.Tests;
 
 [TestClass]
@@ -91,6 +88,44 @@ public class FileSerializerTester
 
             //Act
             var result = Instance.Deserialize<DummyFile>(filename, options);
+
+            //Assert
+            result.Should().BeEquivalentTo(o);
+        }
+    }
+
+    [TestClass]
+    public class Decompress : Tester<FileSerializer>
+    {
+        [TestMethod]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow(null)]
+        public void WhenFilenameIsNullOrEmpty_Throw(string filename)
+        {
+            //Arrange
+            var options = Fixture.Create<FileSerializerOptions>();
+
+            //Act
+            var action = () => Instance.Decompress<DummyFile>(filename, options);
+
+            //Assert
+            action.Should().Throw<ArgumentNullException>();
+        }
+
+        [TestMethod]
+        public void Always_DecompressAndDeserializeFileToObject()
+        {
+            //Arrange
+            var filename = Fixture.Create<string>();
+            var options = Fixture.Create<FileSerializerOptions>();
+
+            var o = Fixture.Create<DummyFile>();
+            var json = JsonSerializer.Serialize(o, options.Serializer);
+            GetMock<IFileLoader>().Setup(x => x.DecompressAsString(filename)).Returns(json);
+
+            //Act
+            var result = Instance.Decompress<DummyFile>(filename, options);
 
             //Assert
             result.Should().BeEquivalentTo(o);

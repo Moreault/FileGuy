@@ -52,7 +52,9 @@ public class FileSaver : IFileSaver
         options ??= _defaultFileSaveOptions;
 
         var directory = Path.GetDirectoryName(path)!;
-        _directory.EnsureExists(directory);
+
+        if (!string.IsNullOrWhiteSpace(directory))
+            _directory.EnsureExists(directory);
 
         if (_file.Exists(path))
         {

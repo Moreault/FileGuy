@@ -151,4 +151,70 @@ public class FileSerializerTester
             result.Should().BeEquivalentTo(originalObject);
         }
     }
+
+    [TestClass]
+    public class Decompress : Tester<FileSerializer>
+    {
+        protected override void InitializeTest()
+        {
+            base.InitializeTest();
+            GetMock<IJsonConverterFetcher>().Setup(x => x.FetchAll()).Returns(new List<JsonConverter>());
+        }
+
+        [TestMethod]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow(null)]
+        public void WhenFilenameIsNullOrEmpty_Throw(string filename)
+        {
+            //Arrange
+
+            //Act
+            var action = () => Instance.Decompress<DummyFile>(filename);
+
+            //Assert
+            action.Should().Throw<ArgumentNullException>();
+        }
+
+        [TestMethod]
+        public void WhenThereIsAConverter_UseThatConverterToDeserialize()
+        {
+            //Arrange
+            var filename = Fixture.Create<string>();
+            var options = Fixture.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
+
+            var originalObject = Fixture.Create<DummyFile>();
+
+            var json = JsonConvert.SerializeObject(originalObject, Formatting.Indented, new DummyJsonConverter());
+            GetMock<IFileLoader>().Setup(x => x.DecompressAsString(filename)).Returns(json);
+
+            var converters = new List<JsonConverter> { new DummyJsonConverter() };
+            GetMock<IJsonConverterFetcher>().Setup(x => x.FetchAll()).Returns(converters);
+
+            //Act
+            var result = Instance.Decompress<DummyFile>(filename, options);
+
+            //Assert
+            result.Should().BeEquivalentTo(originalObject);
+        }
+
+        [TestMethod]
+        public void Always_LoadAndDeserializeItem()
+        {
+            //Arrange
+            var filename = Fixture.Create<string>();
+            var options = Fixture.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
+
+            var originalObject = Fixture.Create<DummyFile>();
+
+            var json = JsonConvert.SerializeObject(originalObject, Formatting.Indented);
+            GetMock<IFileLoader>().Setup(x => x.DecompressAsString(filename)).Returns(json);
+
+            //Act
+            var result = Instance.Decompress<DummyFile>(filename, options);
+
+            //Assert
+            result.Should().BeEquivalentTo(originalObject);
+        }
+    }
 }

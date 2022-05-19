@@ -20,14 +20,18 @@ public class StreamCompressor : IStreamCompressor
     {
         if (stream == null) throw new ArgumentNullException(nameof(stream));
         if (compressionLevel == CompressionLevel.NoCompression) throw new ArgumentException(Exceptions.CannotCompressWithNoCompression);
-        using var compressor = _streamFactory.DeflateStream(stream, compressionLevel);
-        return compressor.ToMemoryStream();
+        var output = _streamFactory.MemoryStream();
+        using var compressor = _streamFactory.DeflateStream(output, compressionLevel, true);
+        stream.CopyTo(compressor);
+        return output;
     }
 
     public IStream Decompress(IStream stream)
     {
         if (stream == null) throw new ArgumentNullException(nameof(stream));
-        using var compressor = _streamFactory.DeflateStream(stream, CompressionMode.Decompress);
-        return compressor.ToMemoryStream();
+        var output = _streamFactory.MemoryStream();
+        using var decompressor = _streamFactory.DeflateStream(stream, CompressionMode.Decompress);
+        decompressor.CopyTo(output);
+        return output;
     }
 }
