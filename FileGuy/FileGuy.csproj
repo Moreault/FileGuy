@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -12,15 +12,15 @@
 		<PackageProjectUrl>https://github.com/Moreault/FileGuy</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>High-level API for saving and loading files.</Description>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Product>ToolBX.$(AssemblyName)</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>fileguy.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ToolBX.AutoInject" Version="1.0.1.1-beta" />
-		<PackageReference Include="ToolBX.NetAbstractions" Version="1.0.2.5-beta" />
+		<PackageReference Include="ToolBX.AutoInject" Version="1.0.2" />
+		<PackageReference Include="ToolBX.NetAbstractions" Version="1.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>

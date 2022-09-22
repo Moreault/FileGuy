@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ToolBX.AssemblyInitializer.Console" Version="1.0.0" />
-    <PackageReference Include="ToolBX.NetAbstractions" Version="1.0.2.5-beta" />
+    <PackageReference Include="ToolBX.AssemblyInitializer.Console" Version="1.0.1" />
+    <PackageReference Include="ToolBX.NetAbstractions" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>
