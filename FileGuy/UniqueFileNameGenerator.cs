@@ -9,10 +9,12 @@ public interface IUniqueFileNameGenerator
 public class UniqueFileNameGenerator : IUniqueFileNameGenerator
 {
     private readonly IFile _file;
+    private readonly IPath _path;
 
-    public UniqueFileNameGenerator(IFile file)
+    public UniqueFileNameGenerator(IFile file, IPath path)
     {
         _file = file;
+        _path = path;
     }
 
     public string Generate(string path)
@@ -22,12 +24,12 @@ public class UniqueFileNameGenerator : IUniqueFileNameGenerator
         var originalPath = path;
         ulong i = 1;
 
-        var directory = Path.GetDirectoryName(originalPath) ?? throw new ArgumentException(string.Format(Exceptions.CannotGenerateUniqueNameBecauseNoRoot, path));
-        var filename = Path.GetFileNameWithoutExtension(originalPath);
-        var extension = Path.GetExtension(originalPath).TrimStart('.');
+        var directory = _path.GetDirectoryName(originalPath) ?? throw new ArgumentException(string.Format(Exceptions.CannotGenerateUniqueNameBecauseNoRoot, path));
+        var filename = _path.GetFileNameWithoutExtension(originalPath);
+        var extension = _path.GetExtension(originalPath)!.TrimStart('.');
 
         while (_file.Exists(path))
-            path = Path.Combine(directory, $"{filename} ({i++}).{extension}");
+            path = _path.Combine(directory, $"{filename} ({i++}).{extension}");
 
         return path;
     }
