@@ -18,10 +18,10 @@ public class JsonConverterFetcher : IJsonConverterFetcher
         {
             var attribute = type.GetCustomAttribute<SmartJsonConverterAttribute>();
             if (attribute?.Types == null || !attribute.Types.Any())
-                output.Add((JsonConverter)Activator.CreateInstance(type));
+                output.Add((JsonConverter)Activator.CreateInstance(type)!);
             else
             {
-                output.AddRange(attribute.Types.Select(x => (JsonConverter)Activator.CreateInstance(type.MakeGenericType(x))));
+                output.AddRange(attribute.Types.Select(x => (JsonConverter)Activator.CreateInstance(type.MakeGenericType(x))!));
             }
         }
 
