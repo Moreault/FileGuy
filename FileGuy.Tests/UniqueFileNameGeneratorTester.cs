@@ -31,6 +31,15 @@ public class UniqueFileNameGeneratorTester
             var path = Fixture.Create<string>();
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(false);
 
+            var directory = Fixture.Create<string>();
+            GetMock<IPath>().Setup(x => x.GetDirectoryName(path)).Returns(directory);
+
+            var filename = Fixture.Create<string>();
+            GetMock<IPath>().Setup(x => x.GetFileNameWithoutExtension(path)).Returns(filename);
+
+            var extension = Fixture.Create<string>();
+            GetMock<IPath>().Setup(x => x.GetExtension(path)).Returns(extension);
+
             //Act
             var result = Instance.Generate(path);
 
