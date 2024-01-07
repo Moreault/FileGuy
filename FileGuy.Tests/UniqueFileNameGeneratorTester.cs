@@ -1,6 +1,4 @@
-﻿using ToolBX.FileGuy;
-
-namespace FileGuy.Tests;
+﻿namespace FileGuy.Tests;
 
 [TestClass]
 public class UniqueFileNameGeneratorTester

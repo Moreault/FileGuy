@@ -12,7 +12,7 @@
 		<PackageProjectUrl>https://github.com/Moreault/FileGuy</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>Adds a FileSerializer service which takes advantage of FileGuy's features to serialize objects to file using Microsoft's System.Text json library.</Description>
-		<Version>2.0.2</Version>
+		<Version>2.2.0-beta1</Version>
 		<Product>ToolBX.$(AssemblyName)</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>fileguy.png</PackageIcon>
@@ -23,19 +23,22 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ToolBX.AutoInject" Version="2.0.2" />
-		<PackageReference Include="ToolBX.NetAbstractions" Version="2.0.3" />
+		<PackageReference Include="ToolBX.AutoInject" Version="2.2.0-beta7" />
+		<PackageReference Include="ToolBX.NetAbstractions" Version="2.2.0-beta2" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\FileGuy\FileGuy.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>

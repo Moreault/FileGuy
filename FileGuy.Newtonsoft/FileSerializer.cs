@@ -8,7 +8,7 @@ public interface IFileSerializer
 }
 
 [AutoInject]
-public class FileSerializer : IFileSerializer
+public sealed class FileSerializer : IFileSerializer
 {
     private readonly IFileSaver _fileSaver;
     private readonly IFileLoader _fileLoader;

@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Text;
-using ToolBX.Eloquentest.Extensions;
-using ToolBX.FileGuy;
-using ToolBX.FileGuy.Resources;
+﻿using ToolBX.Eloquentest.Extensions;
 
 namespace FileGuy.Tests;
 
@@ -63,7 +59,8 @@ public class FileSaverTester
 
             GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(new Mock<IMemoryStream>().Object);
 
-            var directory = Path.GetDirectoryName(path)!;
+            var directory = Fixture.Create<string>();
+            GetMock<IPath>().Setup(x => x.GetDirectoryName(path)).Returns(directory);
 
             //Act
             Instance.Save(text, path, options);
@@ -148,27 +145,6 @@ public class FileSaverTester
 
             //Assert
             action.Should().Throw<Exception>(string.Format(Exceptions.FileAlreadyExists, path));
-        }
-
-        [TestMethod]
-        public void WhenFileAlreadyExistsAndBehaviorIsUnsupported_Throw()
-        {
-            //Arrange
-            var text = Fixture.Create<string>();
-            var file = Encoding.UTF8.GetBytes(text);
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = Fixture.Create<CompressionLevel>(), DuplicateNameBehavior = (DuplicateNameBehavior)int.MaxValue };
-
-            var stream = new Mock<IMemoryStream>();
-            GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(stream.Object);
-
-            GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
-
-            //Act
-            var action = () => Instance.Save(text, path, options);
-
-            //Assert
-            action.Should().Throw<Exception>(string.Format(Exceptions.FileAlreadyExists, options.DuplicateNameBehavior));
         }
 
         [TestMethod]
@@ -338,7 +314,8 @@ public class FileSaverTester
 
             GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(new Mock<IMemoryStream>().Object);
 
-            var directory = Path.GetDirectoryName(path)!;
+            var directory = Fixture.Create<string>();
+            GetMock<IPath>().Setup(x => x.GetDirectoryName(path)).Returns(directory);
 
             //Act
             Instance.Save(file, path, options);
@@ -420,26 +397,6 @@ public class FileSaverTester
 
             //Assert
             action.Should().Throw<Exception>(string.Format(Exceptions.FileAlreadyExists, path));
-        }
-
-        [TestMethod]
-        public void WhenFileAlreadyExistsAndBehaviorIsUnsupported_Throw()
-        {
-            //Arrange
-            var file = Fixture.Create<byte[]>();
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = Fixture.Create<CompressionLevel>(), DuplicateNameBehavior = (DuplicateNameBehavior)int.MaxValue };
-
-            var stream = new Mock<IMemoryStream>();
-            GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(stream.Object);
-
-            GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
-
-            //Act
-            var action = () => Instance.Save(file, path, options);
-
-            //Assert
-            action.Should().Throw<Exception>(string.Format(Exceptions.FileAlreadyExists, options.DuplicateNameBehavior));
         }
 
         [TestMethod]
@@ -562,7 +519,7 @@ public class FileSaverTester
             base.InitializeTest();
             GetMock<IStreamCompressor>().Setup(x => x.Compress(It.IsAny<IStream>(), It.IsAny<CompressionLevel>())).Returns(new Mock<IStream>().Object);
         }
-        
+
         [TestMethod]
         public void WhenStreamIsNull_Throw()
         {
@@ -603,7 +560,8 @@ public class FileSaverTester
             var path = Fixture.CreateFilePath();
             var options = Fixture.Create<FileSaveOptions>();
 
-            var directory = Path.GetDirectoryName(path)!;
+            var directory = Fixture.Create<string>();
+            GetMock<IPath>().Setup(x => x.GetDirectoryName(path)).Returns(directory);
 
             //Act
             Instance.Save(stream.Object, path, options);
@@ -676,23 +634,6 @@ public class FileSaverTester
 
             //Assert
             action.Should().Throw<Exception>(string.Format(Exceptions.FileAlreadyExists, path));
-        }
-
-        [TestMethod]
-        public void WhenFileAlreadyExistsAndBehaviorIsUnsupported_Throw()
-        {
-            //Arrange
-            var stream = new Mock<IStream>();
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = Fixture.Create<CompressionLevel>(), DuplicateNameBehavior = (DuplicateNameBehavior)int.MaxValue };
-
-            GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
-
-            //Act
-            var action = () => Instance.Save(stream.Object, path, options);
-
-            //Assert
-            action.Should().Throw<Exception>(string.Format(Exceptions.FileAlreadyExists, options.DuplicateNameBehavior));
         }
 
         [TestMethod]

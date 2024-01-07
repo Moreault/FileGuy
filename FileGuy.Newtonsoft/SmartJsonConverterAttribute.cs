@@ -4,7 +4,7 @@
 /// Automatically adds Newtonsoft JSON converters that use generic arguments.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
-public class SmartJsonConverterAttribute : Attribute
+public sealed class SmartJsonConverterAttribute : Attribute
 {
     public Type[] Types { get; init; }
 

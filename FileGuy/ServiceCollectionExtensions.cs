@@ -3,12 +3,11 @@
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Injects all services required to use FileGuy. Warning : Only use if you're not using ToolBX's AutoInject or AssemblyInitializer packages.
+    /// Injects all services required to use FileGuy. 
     /// </summary>
-    public static IServiceCollection AddFileGuy(this IServiceCollection services)
+    public static IServiceCollection AddFileGuy(this IServiceCollection services, AutoInjectOptions? options = null)
     {
-        return services.AddSingleton<IFileLoader, FileLoader>()
-            .AddSingleton<IFileSaver, FileSaver>()
-            .AddSingleton<IStreamCompressor, StreamCompressor>();
+        services.AddOptions<FileSaveOptions>("DefaultFileSaving");
+        return services.AddAutoInjectServices(Assembly.GetExecutingAssembly(), options);
     }
 }

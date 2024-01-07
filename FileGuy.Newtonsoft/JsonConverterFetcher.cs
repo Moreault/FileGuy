@@ -3,15 +3,14 @@
 public interface IJsonConverterFetcher
 {
     IReadOnlyList<JsonConverter> FetchAll();
-
 }
 
 [AutoInject]
-public class JsonConverterFetcher : IJsonConverterFetcher
+public sealed class JsonConverterFetcher : IJsonConverterFetcher
 {
     public IReadOnlyList<JsonConverter> FetchAll()
     {
-        var smartConverters = TypeFetcher.Query().HasAttribute(typeof(SmartJsonConverterAttribute)).ToList();
+        var smartConverters = Types.Where(x => x.HasAttribute<SmartJsonConverterAttribute>()).ToList();
 
         var output = new List<JsonConverter>();
         foreach (var type in smartConverters)

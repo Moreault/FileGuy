@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace ToolBX.FileGuy;
+﻿namespace ToolBX.FileGuy;
 
 public interface IFileLoader
 {
@@ -35,8 +33,8 @@ public interface IFileLoader
     IStream LoadAsStream(string path);
 }
 
-[AutoInject]
-public class FileLoader : IFileLoader
+[AutoInject(Lifetime = ServiceLifetime.Scoped)]
+public sealed class FileLoader : IFileLoader
 {
     private readonly IStreamFactory _streamFactory;
     private readonly IStreamCompressor _streamCompressor;
