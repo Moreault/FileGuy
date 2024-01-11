@@ -5,7 +5,7 @@ public interface ISample
     void Start();
 }
 
-[AutoInject]
+[AutoInject(ServiceLifetime.Singleton)]
 public class Sample : ISample
 {
     private const string Filepath = "savefile.txt";

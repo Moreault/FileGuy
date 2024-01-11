@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace ToolBX.FileGuy.Json;
 
@@ -9,7 +10,7 @@ public interface IFileSerializer
     T Decompress<T>(string filename, FileSerializerOptions? options = null);
 }
 
-[AutoInject]
+[AutoInject(ServiceLifetime.Scoped)]
 public sealed class FileSerializer : IFileSerializer
 {
     private readonly IFileSaver _fileSaver;

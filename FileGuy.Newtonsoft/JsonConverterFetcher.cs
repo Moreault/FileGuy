@@ -5,7 +5,7 @@ public interface IJsonConverterFetcher
     IReadOnlyList<JsonConverter> FetchAll();
 }
 
-[AutoInject]
+[AutoInject(ServiceLifetime.Singleton)]
 public sealed class JsonConverterFetcher : IJsonConverterFetcher
 {
     public IReadOnlyList<JsonConverter> FetchAll()
