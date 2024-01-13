@@ -1,13 +1,16 @@
 ﻿namespace ToolBX.FileGuy;
 
+/// <summary>
+/// Compresses and decompresses streams using GZIP.
+/// </summary>
 public interface IStreamCompressor
 {
     IStream Compress(IStream stream, CompressionLevel compressionLevel = CompressionLevel.Fastest);
     IStream Decompress(IStream stream);
 }
 
-[AutoInject]
-public class StreamCompressor : IStreamCompressor
+[AutoInject(Lifetime = ServiceLifetime.Singleton)]
+public sealed class StreamCompressor : IStreamCompressor
 {
     private readonly IStreamFactory _streamFactory;
 

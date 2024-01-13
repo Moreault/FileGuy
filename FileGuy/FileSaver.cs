@@ -1,7 +1,4 @@
-﻿using System.Text;
-using Microsoft.Extensions.Options;
-
-namespace ToolBX.FileGuy;
+﻿namespace ToolBX.FileGuy;
 
 public interface IFileSaver
 {
@@ -10,23 +7,25 @@ public interface IFileSaver
     void Save(IStream stream, string path, FileSaveOptions? options = null);
 }
 
-[AutoInject]
-public class FileSaver : IFileSaver
+[AutoInject(Lifetime = ServiceLifetime.Scoped)]
+public sealed class FileSaver : IFileSaver
 {
     private readonly IFile _file;
     private readonly IDirectory _directory;
     private readonly IStreamFactory _streamFactory;
     private readonly IUniqueFileNameGenerator _uniqueFileNameGenerator;
     private readonly IStreamCompressor _streamCompressor;
+    private readonly IPath _path;
     private readonly FileSaveOptions _defaultFileSaveOptions;
 
-    public FileSaver(IFile file, IDirectory directory, IStreamFactory streamFactory, IUniqueFileNameGenerator uniqueFileNameGenerator, IStreamCompressor streamCompressor, IOptions<FileSaveOptions> options)
+    public FileSaver(IFile file, IDirectory directory, IStreamFactory streamFactory, IUniqueFileNameGenerator uniqueFileNameGenerator, IStreamCompressor streamCompressor, IPath path, IOptions<FileSaveOptions> options)
     {
         _file = file;
         _directory = directory;
         _streamFactory = streamFactory;
         _uniqueFileNameGenerator = uniqueFileNameGenerator;
         _streamCompressor = streamCompressor;
+        _path = path;
         _defaultFileSaveOptions = options.Value ?? new FileSaveOptions();
     }
 
@@ -51,7 +50,7 @@ public class FileSaver : IFileSaver
         if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
         options ??= _defaultFileSaveOptions;
 
-        var directory = Path.GetDirectoryName(path)!;
+        var directory = _path.GetDirectoryName(path)!;
 
         if (!string.IsNullOrWhiteSpace(directory))
             _directory.EnsureExists(directory);
@@ -67,8 +66,6 @@ public class FileSaver : IFileSaver
                     break;
                 case DuplicateNameBehavior.Throw:
                     throw new Exception(string.Format(Exceptions.FileAlreadyExists, path));
-                default:
-                    throw new NotSupportedException(string.Format(Exceptions.FileAlreadyExists, options.DuplicateNameBehavior));
             }
         }
 

@@ -2,11 +2,14 @@
 
 public interface IUniqueFileNameGenerator
 {
+    /// <summary>
+    /// Generates a unique file name based on existing files within a directory to avoid file name collisions
+    /// </summary>
     string Generate(string path);
 }
 
-[AutoInject]
-public class UniqueFileNameGenerator : IUniqueFileNameGenerator
+[AutoInject(ServiceLifetime.Scoped)]
+public sealed class UniqueFileNameGenerator : IUniqueFileNameGenerator
 {
     private readonly IFile _file;
     private readonly IPath _path;

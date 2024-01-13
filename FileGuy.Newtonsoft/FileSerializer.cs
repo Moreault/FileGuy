@@ -7,8 +7,8 @@ public interface IFileSerializer
     T Decompress<T>(string filename, FileSerializerOptions? options = null);
 }
 
-[AutoInject]
-public class FileSerializer : IFileSerializer
+[AutoInject(ServiceLifetime.Scoped)]
+public sealed class FileSerializer : IFileSerializer
 {
     private readonly IFileSaver _fileSaver;
     private readonly IFileLoader _fileLoader;

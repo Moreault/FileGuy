@@ -11,16 +11,18 @@
 		<RepositoryUrl>https://github.com/Moreault/FileGuy</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/Moreault/FileGuy</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Description>High-level API for saving and loading files.</Description>
-		<Version>2.0.2</Version>
+		<Description>High-level API for handling files.</Description>
+		<Version>2.2.0-beta2a</Version>
 		<Product>ToolBX.$(AssemblyName)</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>fileguy.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ToolBX.AutoInject" Version="2.0.2" />
-		<PackageReference Include="ToolBX.NetAbstractions" Version="2.0.3" />
+		<PackageReference Include="ToolBX.AutoConfig" Version="2.2.0" />
+		<PackageReference Include="ToolBX.AutoInject" Version="2.2.0" />
+		<PackageReference Include="ToolBX.DescriptiveEnums" Version="2.2.0" />
+		<PackageReference Include="ToolBX.NetAbstractions" Version="2.2.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -49,7 +51,10 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="..\README.md">
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>

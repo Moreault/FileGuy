@@ -1,7 +1,8 @@
 ﻿namespace ToolBX.FileGuy.Newtonsoft;
 
+[AutoConfig.AutoConfig("DefaultFileSerialization")]
 [AutoConfig("DefaultFileSerialization")]
-public record FileSerializerOptions : FileSaveOptions
+public sealed record FileSerializerOptions : FileSaveOptions
 {
     public JsonSerializerSettings Serializer { get; init; } = new();
 }
