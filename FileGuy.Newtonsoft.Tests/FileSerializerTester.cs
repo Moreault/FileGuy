@@ -1,5 +1,3 @@
-using ToolBX.FileGuy;
-
 namespace FileGuy.Newtonsoft.Tests;
 
 [TestClass]
@@ -18,9 +16,9 @@ public class FileSerializerTester
         public void WhenObjectIsNull_Throw()
         {
             //Arrange
-            DummyFile o = null!;
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>();
+            GarbageFile o = null!;
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>();
 
             //Act
             var action = () => Instance.Serialize(o, filename, options);
@@ -36,8 +34,8 @@ public class FileSerializerTester
         public void WhenFilenameIsNullOrEmpty_Throw(string filename)
         {
             //Arrange
-            var o = Fixture.Create<DummyFile>();
-            var options = Fixture.Create<FileSerializerOptions>();
+            var o = Dummy.Create<GarbageFile>();
+            var options = Dummy.Create<FileSerializerOptions>();
 
             //Act
             var action = () => Instance.Serialize(o, filename, options);
@@ -50,11 +48,11 @@ public class FileSerializerTester
         public void WhenJsonConvertersAreFound_UseThemToSerialize()
         {
             //Arrange
-            var o = Fixture.Create<DummyFile>();
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
+            var o = Dummy.Create<GarbageFile>();
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
 
-            var converters = new List<JsonConverter> { new DummyJsonConverter() };
+            var converters = new List<JsonConverter> { new GarbageJsonConverter() };
             GetMock<IJsonConverterFetcher>().Setup(x => x.FetchAll()).Returns(converters);
 
             var jsonOptionsWithConverter = new JsonSerializerSettings { Formatting = Formatting.Indented, Converters = converters };
@@ -72,9 +70,9 @@ public class FileSerializerTester
         public void Always_SaveSerializedObject()
         {
             //Arrange
-            var o = Fixture.Create<DummyFile>();
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
+            var o = Dummy.Create<GarbageFile>();
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
 
             var json = JsonConvert.SerializeObject(o, options.Serializer);
 
@@ -104,7 +102,7 @@ public class FileSerializerTester
             //Arrange
 
             //Act
-            var action = () => Instance.Deserialize<DummyFile>(filename);
+            var action = () => Instance.Deserialize<GarbageFile>(filename);
 
             //Assert
             action.Should().Throw<ArgumentNullException>();
@@ -114,19 +112,19 @@ public class FileSerializerTester
         public void WhenThereIsAConverter_UseThatConverterToDeserialize()
         {
             //Arrange
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
 
-            var originalObject = Fixture.Create<DummyFile>();
+            var originalObject = Dummy.Create<GarbageFile>();
 
-            var json = JsonConvert.SerializeObject(originalObject, Formatting.Indented, new DummyJsonConverter());
+            var json = JsonConvert.SerializeObject(originalObject, Formatting.Indented, new GarbageJsonConverter());
             GetMock<IFileLoader>().Setup(x => x.LoadAsString(filename)).Returns(json);
 
-            var converters = new List<JsonConverter> { new DummyJsonConverter() };
+            var converters = new List<JsonConverter> { new GarbageJsonConverter() };
             GetMock<IJsonConverterFetcher>().Setup(x => x.FetchAll()).Returns(converters);
 
             //Act
-            var result = Instance.Deserialize<DummyFile>(filename, options);
+            var result = Instance.Deserialize<GarbageFile>(filename, options);
 
             //Assert
             result.Should().BeEquivalentTo(originalObject);
@@ -136,16 +134,16 @@ public class FileSerializerTester
         public void Always_LoadAndDeserializeItem()
         {
             //Arrange
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
 
-            var originalObject = Fixture.Create<DummyFile>();
+            var originalObject = Dummy.Create<GarbageFile>();
 
             var json = JsonConvert.SerializeObject(originalObject, Formatting.Indented);
             GetMock<IFileLoader>().Setup(x => x.LoadAsString(filename)).Returns(json);
 
             //Act
-            var result = Instance.Deserialize<DummyFile>(filename, options);
+            var result = Instance.Deserialize<GarbageFile>(filename, options);
 
             //Assert
             result.Should().BeEquivalentTo(originalObject);
@@ -170,7 +168,7 @@ public class FileSerializerTester
             //Arrange
 
             //Act
-            var action = () => Instance.Decompress<DummyFile>(filename);
+            var action = () => Instance.Decompress<GarbageFile>(filename);
 
             //Assert
             action.Should().Throw<ArgumentNullException>();
@@ -180,19 +178,19 @@ public class FileSerializerTester
         public void WhenThereIsAConverter_UseThatConverterToDeserialize()
         {
             //Arrange
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
 
-            var originalObject = Fixture.Create<DummyFile>();
+            var originalObject = Dummy.Create<GarbageFile>();
 
-            var json = JsonConvert.SerializeObject(originalObject, Formatting.Indented, new DummyJsonConverter());
+            var json = JsonConvert.SerializeObject(originalObject, Formatting.Indented, new GarbageJsonConverter());
             GetMock<IFileLoader>().Setup(x => x.DecompressAsString(filename)).Returns(json);
 
-            var converters = new List<JsonConverter> { new DummyJsonConverter() };
+            var converters = new List<JsonConverter> { new GarbageJsonConverter() };
             GetMock<IJsonConverterFetcher>().Setup(x => x.FetchAll()).Returns(converters);
 
             //Act
-            var result = Instance.Decompress<DummyFile>(filename, options);
+            var result = Instance.Decompress<GarbageFile>(filename, options);
 
             //Assert
             result.Should().BeEquivalentTo(originalObject);
@@ -202,16 +200,16 @@ public class FileSerializerTester
         public void Always_LoadAndDeserializeItem()
         {
             //Arrange
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>() with { Serializer = new JsonSerializerSettings { Formatting = Formatting.Indented } };
 
-            var originalObject = Fixture.Create<DummyFile>();
+            var originalObject = Dummy.Create<GarbageFile>();
 
             var json = JsonConvert.SerializeObject(originalObject, Formatting.Indented);
             GetMock<IFileLoader>().Setup(x => x.DecompressAsString(filename)).Returns(json);
 
             //Act
-            var result = Instance.Decompress<DummyFile>(filename, options);
+            var result = Instance.Decompress<GarbageFile>(filename, options);
 
             //Assert
             result.Should().BeEquivalentTo(originalObject);

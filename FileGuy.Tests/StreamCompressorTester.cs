@@ -11,7 +11,7 @@ public class StreamCompressorTester
         {
             //Arrange
             IStream stream = null!;
-            var compressionLevel = Fixture.Create<CompressionLevel>();
+            var compressionLevel = Dummy.Create<CompressionLevel>();
 
             //Act
             var action = () => Instance.Compress(stream, compressionLevel);

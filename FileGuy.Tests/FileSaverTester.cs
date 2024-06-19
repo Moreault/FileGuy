@@ -1,6 +1,4 @@
-﻿using ToolBX.Eloquentest.Extensions;
-
-namespace FileGuy.Tests;
+﻿namespace FileGuy.Tests;
 
 [TestClass]
 public class FileSaverTester
@@ -21,8 +19,8 @@ public class FileSaverTester
         public void WhenStreamIsNull_Throw(string text)
         {
             //Arrange
-            var path = Fixture.CreateFilePath();
-            var options = Fixture.Create<FileSaveOptions>();
+            var path = Dummy.Path.Create();
+            var options = Dummy.Create<FileSaveOptions>();
 
             //Act
             var action = () => Instance.Save(text, path, options);
@@ -38,8 +36,8 @@ public class FileSaverTester
         public void WhenPathIsNullOrEmpty_Throw(string path)
         {
             //Arrange
-            var text = Fixture.Create<string>();
-            var options = Fixture.Create<FileSaveOptions>();
+            var text = Dummy.Create<string>();
+            var options = Dummy.Create<FileSaveOptions>();
 
             //Act
             var action = () => Instance.Save(text, path, options);
@@ -52,14 +50,14 @@ public class FileSaverTester
         public void Always_EnsureDirectoryExists()
         {
             //Arrange
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var file = Encoding.UTF8.GetBytes(text);
-            var path = Fixture.CreateFilePath();
-            var options = Fixture.Create<FileSaveOptions>();
+            var path = Dummy.Path.Create();
+            var options = Dummy.Create<FileSaveOptions>();
 
             GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(new Mock<IMemoryStream>().Object);
 
-            var directory = Fixture.Create<string>();
+            var directory = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetDirectoryName(path)).Returns(directory);
 
             //Act
@@ -73,9 +71,9 @@ public class FileSaverTester
         public void WhenFileAlreadyExistsAndBehaviorIsToOverwriteAndNoCompression_SaveFileAsIs()
         {
             //Arrange
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var file = Encoding.UTF8.GetBytes(text);
-            var path = Fixture.CreateFilePath();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = DuplicateNameBehavior.Overwrite };
 
             var stream = new Mock<IMemoryStream>();
@@ -100,9 +98,9 @@ public class FileSaverTester
         public void WhenFileAlreadyExistsAndBehaviorIsToOverwriteAndHasCompressionLevel_CompressBeforeSavingAsIs(CompressionLevel compressionLevel)
         {
             //Arrange
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var file = Encoding.UTF8.GetBytes(text);
-            var path = Fixture.CreateFilePath();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = DuplicateNameBehavior.Overwrite };
 
             var stream = new Mock<IMemoryStream>();
@@ -130,10 +128,10 @@ public class FileSaverTester
         public void WhenFileAlreadyExistsAndBehaviorIsToThrow_Throw()
         {
             //Arrange
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var file = Encoding.UTF8.GetBytes(text);
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = Fixture.Create<CompressionLevel>(), DuplicateNameBehavior = DuplicateNameBehavior.Throw };
+            var path = Dummy.Path.Create();
+            var options = new FileSaveOptions { CompressionLevel = Dummy.Create<CompressionLevel>(), DuplicateNameBehavior = DuplicateNameBehavior.Throw };
 
             var stream = new Mock<IMemoryStream>();
             GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(stream.Object);
@@ -151,9 +149,9 @@ public class FileSaverTester
         public void WhenFileAlreadyExistsAndBehaviorIsToKeepAndNoCompression_SaveWithUniqueName()
         {
             //Arrange
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var file = Encoding.UTF8.GetBytes(text);
-            var path = Fixture.CreateFilePath();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = DuplicateNameBehavior.Keep };
 
             var stream = new Mock<IMemoryStream>();
@@ -161,7 +159,7 @@ public class FileSaverTester
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
 
-            var uniqueName = Fixture.CreateFilePath();
+            var uniqueName = Dummy.Path.Create();
             GetMock<IUniqueFileNameGenerator>().Setup(x => x.Generate(path)).Returns(uniqueName);
 
             var filestream = new Mock<IFileStream>();
@@ -181,9 +179,9 @@ public class FileSaverTester
         public void WhenFileAlreadyExistsAndBehaviorIsToKeepAndHasCompressionLevel_CompressBeforeSavingWithUniqueName(CompressionLevel compressionLevel)
         {
             //Arrange
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var file = Encoding.UTF8.GetBytes(text);
-            var path = Fixture.CreateFilePath();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = DuplicateNameBehavior.Keep };
 
             var stream = new Mock<IMemoryStream>();
@@ -191,7 +189,7 @@ public class FileSaverTester
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
 
-            var uniqueName = Fixture.CreateFilePath();
+            var uniqueName = Dummy.Path.Create();
             GetMock<IUniqueFileNameGenerator>().Setup(x => x.Generate(path)).Returns(uniqueName);
 
             var compressedStream = new Mock<IStream>();
@@ -212,10 +210,10 @@ public class FileSaverTester
         public void WhenFileDoesNotExistAndNoCompression_SaveFileAsIs()
         {
             //Arrange
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var file = Encoding.UTF8.GetBytes(text);
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = Fixture.Create<DuplicateNameBehavior>() };
+            var path = Dummy.Path.Create();
+            var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = Dummy.Create<DuplicateNameBehavior>() };
 
             var stream = new Mock<IMemoryStream>();
             GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(stream.Object);
@@ -239,10 +237,10 @@ public class FileSaverTester
         public void WhenFileDoesNotExistAndHasCompressionLevel_CompressBeforeSavingFile(CompressionLevel compressionLevel)
         {
             //Arrange
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var file = Encoding.UTF8.GetBytes(text);
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = Fixture.Create<DuplicateNameBehavior>() };
+            var path = Dummy.Path.Create();
+            var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = Dummy.Create<DuplicateNameBehavior>() };
 
             var stream = new Mock<IMemoryStream>();
             GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(stream.Object);
@@ -277,8 +275,8 @@ public class FileSaverTester
         {
             //Arrange
             byte[] file = null!;
-            var path = Fixture.CreateFilePath();
-            var options = Fixture.Create<FileSaveOptions>();
+            var path = Dummy.Path.Create();
+            var options = Dummy.Create<FileSaveOptions>();
 
             //Act
             var action = () => Instance.Save(file, path, options);
@@ -294,8 +292,8 @@ public class FileSaverTester
         public void WhenPathIsNullOrEmpty_Throw(string path)
         {
             //Arrange
-            var file = Fixture.Create<byte[]>();
-            var options = Fixture.Create<FileSaveOptions>();
+            var file = Dummy.Create<byte[]>();
+            var options = Dummy.Create<FileSaveOptions>();
 
             //Act
             var action = () => Instance.Save(file, path, options);
@@ -308,13 +306,13 @@ public class FileSaverTester
         public void Always_EnsureDirectoryExists()
         {
             //Arrange
-            var file = Fixture.Create<byte[]>();
-            var path = Fixture.CreateFilePath();
-            var options = Fixture.Create<FileSaveOptions>();
+            var file = Dummy.Create<byte[]>();
+            var path = Dummy.Path.Create();
+            var options = Dummy.Create<FileSaveOptions>();
 
             GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(new Mock<IMemoryStream>().Object);
 
-            var directory = Fixture.Create<string>();
+            var directory = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetDirectoryName(path)).Returns(directory);
 
             //Act
@@ -328,8 +326,8 @@ public class FileSaverTester
         public void WhenFileAlreadyExistsAndBehaviorIsToOverwriteAndNoCompression_SaveFileAsIs()
         {
             //Arrange
-            var file = Fixture.Create<byte[]>();
-            var path = Fixture.CreateFilePath();
+            var file = Dummy.Create<byte[]>();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = DuplicateNameBehavior.Overwrite };
 
             var stream = new Mock<IMemoryStream>();
@@ -354,8 +352,8 @@ public class FileSaverTester
         public void WhenFileAlreadyExistsAndBehaviorIsToOverwriteAndHasCompressionLevel_CompressBeforeSavingAsIs(CompressionLevel compressionLevel)
         {
             //Arrange
-            var file = Fixture.Create<byte[]>();
-            var path = Fixture.CreateFilePath();
+            var file = Dummy.Create<byte[]>();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = DuplicateNameBehavior.Overwrite };
 
             var stream = new Mock<IMemoryStream>();
@@ -383,9 +381,9 @@ public class FileSaverTester
         public void WhenFileAlreadyExistsAndBehaviorIsToThrow_Throw()
         {
             //Arrange
-            var file = Fixture.Create<byte[]>();
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = Fixture.Create<CompressionLevel>(), DuplicateNameBehavior = DuplicateNameBehavior.Throw };
+            var file = Dummy.Create<byte[]>();
+            var path = Dummy.Path.Create();
+            var options = new FileSaveOptions { CompressionLevel = Dummy.Create<CompressionLevel>(), DuplicateNameBehavior = DuplicateNameBehavior.Throw };
 
             var stream = new Mock<IMemoryStream>();
             GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(stream.Object);
@@ -403,8 +401,8 @@ public class FileSaverTester
         public void WhenFileAlreadyExistsAndBehaviorIsToKeepAndNoCompression_SaveWithUniqueName()
         {
             //Arrange
-            var file = Fixture.Create<byte[]>();
-            var path = Fixture.CreateFilePath();
+            var file = Dummy.Create<byte[]>();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = DuplicateNameBehavior.Keep };
 
             var stream = new Mock<IMemoryStream>();
@@ -412,7 +410,7 @@ public class FileSaverTester
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
 
-            var uniqueName = Fixture.CreateFilePath();
+            var uniqueName = Dummy.Path.Create();
             GetMock<IUniqueFileNameGenerator>().Setup(x => x.Generate(path)).Returns(uniqueName);
 
             var filestream = new Mock<IFileStream>();
@@ -432,8 +430,8 @@ public class FileSaverTester
         public void WhenFileAlreadyExistsAndBehaviorIsToKeepAndHasCompressionLevel_CompressBeforeSavingWithUniqueName(CompressionLevel compressionLevel)
         {
             //Arrange
-            var file = Fixture.Create<byte[]>();
-            var path = Fixture.CreateFilePath();
+            var file = Dummy.Create<byte[]>();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = DuplicateNameBehavior.Keep };
 
             var stream = new Mock<IMemoryStream>();
@@ -441,7 +439,7 @@ public class FileSaverTester
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
 
-            var uniqueName = Fixture.CreateFilePath();
+            var uniqueName = Dummy.Path.Create();
             GetMock<IUniqueFileNameGenerator>().Setup(x => x.Generate(path)).Returns(uniqueName);
 
             var compressedStream = new Mock<IStream>();
@@ -462,9 +460,9 @@ public class FileSaverTester
         public void WhenFileDoesNotExistAndNoCompression_SaveFileAsIs()
         {
             //Arrange
-            var file = Fixture.Create<byte[]>();
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = Fixture.Create<DuplicateNameBehavior>() };
+            var file = Dummy.Create<byte[]>();
+            var path = Dummy.Path.Create();
+            var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = Dummy.Create<DuplicateNameBehavior>() };
 
             var stream = new Mock<IMemoryStream>();
             GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(stream.Object);
@@ -488,9 +486,9 @@ public class FileSaverTester
         public void WhenFileDoesNotExistAndHasCompressionLevel_CompressBeforeSavingFile(CompressionLevel compressionLevel)
         {
             //Arrange
-            var file = Fixture.Create<byte[]>();
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = Fixture.Create<DuplicateNameBehavior>() };
+            var file = Dummy.Create<byte[]>();
+            var path = Dummy.Path.Create();
+            var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = Dummy.Create<DuplicateNameBehavior>() };
 
             var stream = new Mock<IMemoryStream>();
             GetMock<IStreamFactory>().Setup(x => x.MemoryStream(file)).Returns(stream.Object);
@@ -525,8 +523,8 @@ public class FileSaverTester
         {
             //Arrange
             IStream stream = null!;
-            var path = Fixture.CreateFilePath();
-            var options = Fixture.Create<FileSaveOptions>();
+            var path = Dummy.Path.Create();
+            var options = Dummy.Create<FileSaveOptions>();
 
             //Act
             var action = () => Instance.Save(stream, path, options);
@@ -543,7 +541,7 @@ public class FileSaverTester
         {
             //Arrange
             var stream = new Mock<IStream>();
-            var options = Fixture.Create<FileSaveOptions>();
+            var options = Dummy.Create<FileSaveOptions>();
 
             //Act
             var action = () => Instance.Save(stream.Object, path, options);
@@ -557,10 +555,10 @@ public class FileSaverTester
         {
             //Arrange
             var stream = new Mock<IStream>();
-            var path = Fixture.CreateFilePath();
-            var options = Fixture.Create<FileSaveOptions>();
+            var path = Dummy.Path.Create();
+            var options = Dummy.Create<FileSaveOptions>();
 
-            var directory = Fixture.Create<string>();
+            var directory = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetDirectoryName(path)).Returns(directory);
 
             //Act
@@ -575,7 +573,7 @@ public class FileSaverTester
         {
             //Arrange
             var stream = new Mock<IStream>();
-            var path = Fixture.CreateFilePath();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = DuplicateNameBehavior.Overwrite };
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
@@ -598,7 +596,7 @@ public class FileSaverTester
         {
             //Arrange
             var stream = new Mock<IStream>();
-            var path = Fixture.CreateFilePath();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = DuplicateNameBehavior.Overwrite };
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
@@ -624,8 +622,8 @@ public class FileSaverTester
         {
             //Arrange
             var stream = new Mock<IStream>();
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = Fixture.Create<CompressionLevel>(), DuplicateNameBehavior = DuplicateNameBehavior.Throw };
+            var path = Dummy.Path.Create();
+            var options = new FileSaveOptions { CompressionLevel = Dummy.Create<CompressionLevel>(), DuplicateNameBehavior = DuplicateNameBehavior.Throw };
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
 
@@ -641,12 +639,12 @@ public class FileSaverTester
         {
             //Arrange
             var stream = new Mock<IStream>();
-            var path = Fixture.CreateFilePath();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = DuplicateNameBehavior.Keep };
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
 
-            var uniqueName = Fixture.CreateFilePath();
+            var uniqueName = Dummy.Path.Create();
             GetMock<IUniqueFileNameGenerator>().Setup(x => x.Generate(path)).Returns(uniqueName);
 
             var filestream = new Mock<IFileStream>();
@@ -667,12 +665,12 @@ public class FileSaverTester
         {
             //Arrange
             var stream = new Mock<IStream>();
-            var path = Fixture.CreateFilePath();
+            var path = Dummy.Path.Create();
             var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = DuplicateNameBehavior.Keep };
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
 
-            var uniqueName = Fixture.CreateFilePath();
+            var uniqueName = Dummy.Path.Create();
             GetMock<IUniqueFileNameGenerator>().Setup(x => x.Generate(path)).Returns(uniqueName);
 
             var compressedStream = new Mock<IStream>();
@@ -694,8 +692,8 @@ public class FileSaverTester
         {
             //Arrange
             var stream = new Mock<IStream>();
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = Fixture.Create<DuplicateNameBehavior>() };
+            var path = Dummy.Path.Create();
+            var options = new FileSaveOptions { CompressionLevel = CompressionLevel.NoCompression, DuplicateNameBehavior = Dummy.Create<DuplicateNameBehavior>() };
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(false);
 
@@ -717,8 +715,8 @@ public class FileSaverTester
         {
             //Arrange
             var stream = new Mock<IStream>();
-            var path = Fixture.CreateFilePath();
-            var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = Fixture.Create<DuplicateNameBehavior>() };
+            var path = Dummy.Path.Create();
+            var options = new FileSaveOptions { CompressionLevel = compressionLevel, DuplicateNameBehavior = Dummy.Create<DuplicateNameBehavior>() };
 
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(false);
 
