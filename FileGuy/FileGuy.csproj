@@ -19,10 +19,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ToolBX.AutoConfig" Version="2.2.0" />
-		<PackageReference Include="ToolBX.AutoInject" Version="2.2.0" />
-		<PackageReference Include="ToolBX.DescriptiveEnums" Version="2.2.0" />
-		<PackageReference Include="ToolBX.NetAbstractions" Version="2.2.0" />
+		<PackageReference Include="ToolBX.AutoConfig" Version="3.0.0-beta1" />
+		<PackageReference Include="ToolBX.AutoInject" Version="3.0.0-beta2" />
+		<PackageReference Include="ToolBX.DescriptiveEnums" Version="3.0.0-beta1" />
+		<PackageReference Include="ToolBX.NetAbstractions" Version="3.0.0-beta1" />
 	</ItemGroup>
 
 	<ItemGroup>
