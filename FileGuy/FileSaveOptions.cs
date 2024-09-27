@@ -1,7 +1,5 @@
 ﻿namespace ToolBX.FileGuy;
 
-[AutoConfig.AutoConfig("DefaultFileSaving")]
-//TODO 3.0.0 : Remove this one
 [AutoConfig("DefaultFileSaving")]
 public record FileSaveOptions
 {

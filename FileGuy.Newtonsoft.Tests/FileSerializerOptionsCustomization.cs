@@ -1,10 +1,7 @@
 ﻿namespace FileGuy.Newtonsoft.Tests;
 
 [AutoCustomization]
-public class FileSerializerOptionsCustomization : ICustomization
+public class FileSerializerOptionsCustomization : CustomizationBase<FileSerializerOptions>
 {
-    public void Customize(IFixture fixture)
-    {
-        fixture.Customize<FileSerializerOptions>(x => x.Without(y => y.Serializer));
-    }
+    public override IDummyBuilder<FileSerializerOptions> Build(IDummy dummy) => dummy.Build<FileSerializerOptions>().Without(x => x.Serializer);
 }

@@ -1,8 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿namespace ToolBX.FileGuy;
 
-namespace ToolBX.FileGuy;
-
-[AutoConfig.AutoConfig("DefaultFileFetching")]
 [AutoConfig("DefaultFileFetching")]
 public sealed record FileFetchOptions
 {

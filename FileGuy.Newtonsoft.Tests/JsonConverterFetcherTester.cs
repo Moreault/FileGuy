@@ -17,9 +17,9 @@ public class JsonConverterFetcherTester
             //Assert
             result.Select(x => x.GetType()).Should().BeEquivalentTo(new List<Type>
             {
-                typeof(GenericDummyJsonConverter<int>),
-                typeof(GenericDummyJsonConverter<string>),
-                typeof(DummyJsonConverter)
+                typeof(GenericGarbageJsonConverter<int>),
+                typeof(GenericGarbageJsonConverter<string>),
+                typeof(GarbageJsonConverter)
             });
         }
     }

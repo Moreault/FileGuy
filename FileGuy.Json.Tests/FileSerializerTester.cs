@@ -10,9 +10,9 @@ public class FileSerializerTester
         public void WhenObjectIsNull_Throw()
         {
             //Arrange
-            DummyFile o = null!;
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>();
+            GarbageFile o = null!;
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>();
 
             //Act
             var action = () => Instance.Serialize(o, filename, options);
@@ -28,8 +28,8 @@ public class FileSerializerTester
         public void WhenFilenameIsNullOrEmpty_Throw(string filename)
         {
             //Arrange
-            var o = Fixture.Create<DummyFile>();
-            var options = Fixture.Create<FileSerializerOptions>();
+            var o = Dummy.Create<GarbageFile>();
+            var options = Dummy.Create<FileSerializerOptions>();
 
             //Act
             var action = () => Instance.Serialize(o, filename, options);
@@ -42,9 +42,9 @@ public class FileSerializerTester
         public void Always_SaveSerializedObject()
         {
             //Arrange
-            var o = Fixture.Create<DummyFile>();
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>();
+            var o = Dummy.Create<GarbageFile>();
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>();
 
             var json = JsonSerializer.Serialize(o, options.Serializer);
 
@@ -66,10 +66,10 @@ public class FileSerializerTester
         public void WhenFilenameIsNullOrEmpty_Throw(string filename)
         {
             //Arrange
-            var options = Fixture.Create<FileSerializerOptions>();
+            var options = Dummy.Create<FileSerializerOptions>();
 
             //Act
-            var action = () => Instance.Deserialize<DummyFile>(filename, options);
+            var action = () => Instance.Deserialize<GarbageFile>(filename, options);
 
             //Assert
             action.Should().Throw<ArgumentNullException>();
@@ -79,15 +79,15 @@ public class FileSerializerTester
         public void Always_DeserializeFileToObject()
         {
             //Arrange
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>();
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>();
 
-            var o = Fixture.Create<DummyFile>();
+            var o = Dummy.Create<GarbageFile>();
             var json = JsonSerializer.Serialize(o, options.Serializer);
             GetMock<IFileLoader>().Setup(x => x.LoadAsString(filename)).Returns(json);
 
             //Act
-            var result = Instance.Deserialize<DummyFile>(filename, options);
+            var result = Instance.Deserialize<GarbageFile>(filename, options);
 
             //Assert
             result.Should().BeEquivalentTo(o);
@@ -104,10 +104,10 @@ public class FileSerializerTester
         public void WhenFilenameIsNullOrEmpty_Throw(string filename)
         {
             //Arrange
-            var options = Fixture.Create<FileSerializerOptions>();
+            var options = Dummy.Create<FileSerializerOptions>();
 
             //Act
-            var action = () => Instance.Decompress<DummyFile>(filename, options);
+            var action = () => Instance.Decompress<GarbageFile>(filename, options);
 
             //Assert
             action.Should().Throw<ArgumentNullException>();
@@ -117,15 +117,15 @@ public class FileSerializerTester
         public void Always_DecompressAndDeserializeFileToObject()
         {
             //Arrange
-            var filename = Fixture.Create<string>();
-            var options = Fixture.Create<FileSerializerOptions>();
+            var filename = Dummy.Create<string>();
+            var options = Dummy.Create<FileSerializerOptions>();
 
-            var o = Fixture.Create<DummyFile>();
+            var o = Dummy.Create<GarbageFile>();
             var json = JsonSerializer.Serialize(o, options.Serializer);
             GetMock<IFileLoader>().Setup(x => x.DecompressAsString(filename)).Returns(json);
 
             //Act
-            var result = Instance.Decompress<DummyFile>(filename, options);
+            var result = Instance.Decompress<GarbageFile>(filename, options);
 
             //Assert
             result.Should().BeEquivalentTo(o);

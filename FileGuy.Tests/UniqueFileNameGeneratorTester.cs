@@ -26,16 +26,16 @@ public class UniqueFileNameGeneratorTester
         public void WhenOriginalFilenameDoesNotExist_ReturnOriginalFilename()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(false);
 
-            var directory = Fixture.Create<string>();
+            var directory = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetDirectoryName(path)).Returns(directory);
 
-            var filename = Fixture.Create<string>();
+            var filename = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetFileNameWithoutExtension(path)).Returns(filename);
 
-            var extension = Fixture.Create<string>();
+            var extension = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetExtension(path)).Returns(extension);
 
             //Act
@@ -52,16 +52,16 @@ public class UniqueFileNameGeneratorTester
             var path = "c:/somedirectory/somefile.exe";
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
 
-            var directory = Fixture.Create<string>();
+            var directory = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetDirectoryName(path)).Returns(directory);
 
-            var filename = Fixture.Create<string>();
+            var filename = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetFileNameWithoutExtension(path)).Returns(filename);
 
-            var extension = Fixture.Create<string>();
+            var extension = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetExtension(path)).Returns(extension);
 
-            var combined = Fixture.Create<string>();
+            var combined = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.Combine(directory, $"{filename} (1).{extension}")).Returns(combined);
             
             GetMock<IFile>().Setup(x => x.Exists(combined)).Returns(false);
@@ -80,18 +80,18 @@ public class UniqueFileNameGeneratorTester
             var path = "c:/somedirectory/somefile.exe";
             GetMock<IFile>().Setup(x => x.Exists(path)).Returns(true);
 
-            var directory = Fixture.Create<string>();
+            var directory = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetDirectoryName(path)).Returns(directory);
 
-            var filename = Fixture.Create<string>();
+            var filename = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetFileNameWithoutExtension(path)).Returns(filename);
 
-            var extension = Fixture.Create<string>();
+            var extension = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.GetExtension(path)).Returns(extension);
 
-            var combined1 = Fixture.Create<string>();
+            var combined1 = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.Combine(directory, $"{filename} (1).{extension}")).Returns(combined1);
-            var combined2 = Fixture.Create<string>();
+            var combined2 = Dummy.Create<string>();
             GetMock<IPath>().Setup(x => x.Combine(directory, $"{filename} (2).{extension}")).Returns(combined2);
 
             GetMock<IFile>().Setup(x => x.Exists(combined1)).Returns(true);

@@ -25,7 +25,7 @@ public class FileLoaderTester
         public void WhenPathIsValid_ReturnText()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -33,7 +33,7 @@ public class FileLoaderTester
             var decompressed = new Mock<IStream>();
             GetMock<IStreamCompressor>().Setup(x => x.Decompress(filestream.Object)).Returns(decompressed.Object);
 
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var bytes = Encoding.UTF8.GetBytes(text);
             decompressed.Setup(x => x.ToArray()).Returns(bytes);
 
@@ -48,7 +48,7 @@ public class FileLoaderTester
         public void Always_DisposeFileStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -56,7 +56,7 @@ public class FileLoaderTester
             var decompressed = new Mock<IStream>();
             GetMock<IStreamCompressor>().Setup(x => x.Decompress(filestream.Object)).Returns(decompressed.Object);
 
-            var bytes = Fixture.CreateMany<byte>().ToArray();
+            var bytes = Dummy.CreateMany<byte>().ToArray();
             decompressed.Setup(x => x.ToArray()).Returns(bytes);
 
             //Act
@@ -70,7 +70,7 @@ public class FileLoaderTester
         public void Always_DisposeDecompressedStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -78,7 +78,7 @@ public class FileLoaderTester
             var decompressed = new Mock<IStream>();
             GetMock<IStreamCompressor>().Setup(x => x.Decompress(filestream.Object)).Returns(decompressed.Object);
 
-            var bytes = Fixture.CreateMany<byte>().ToArray();
+            var bytes = Dummy.CreateMany<byte>().ToArray();
             decompressed.Setup(x => x.ToArray()).Returns(bytes);
 
             //Act
@@ -112,7 +112,7 @@ public class FileLoaderTester
         public void WhenPathIsValid_ReturnDecompressedBytes()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -120,7 +120,7 @@ public class FileLoaderTester
             var decompressed = new Mock<IStream>();
             GetMock<IStreamCompressor>().Setup(x => x.Decompress(filestream.Object)).Returns(decompressed.Object);
 
-            var bytes = Fixture.CreateMany<byte>().ToArray();
+            var bytes = Dummy.CreateMany<byte>().ToArray();
             decompressed.Setup(x => x.ToArray()).Returns(bytes);
 
             //Act
@@ -134,7 +134,7 @@ public class FileLoaderTester
         public void Always_DisposeFileStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -142,7 +142,7 @@ public class FileLoaderTester
             var decompressed = new Mock<IStream>();
             GetMock<IStreamCompressor>().Setup(x => x.Decompress(filestream.Object)).Returns(decompressed.Object);
 
-            var bytes = Fixture.CreateMany<byte>().ToArray();
+            var bytes = Dummy.CreateMany<byte>().ToArray();
             decompressed.Setup(x => x.ToArray()).Returns(bytes);
 
             //Act
@@ -156,7 +156,7 @@ public class FileLoaderTester
         public void Always_DisposeMemoryStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -164,7 +164,7 @@ public class FileLoaderTester
             var decompressed = new Mock<IStream>();
             GetMock<IStreamCompressor>().Setup(x => x.Decompress(filestream.Object)).Returns(decompressed.Object);
 
-            var bytes = Fixture.CreateMany<byte>().ToArray();
+            var bytes = Dummy.CreateMany<byte>().ToArray();
             decompressed.Setup(x => x.ToArray()).Returns(bytes);
 
             //Act
@@ -178,7 +178,7 @@ public class FileLoaderTester
         public void Always_DisposeDecompressedStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -186,7 +186,7 @@ public class FileLoaderTester
             var decompressed = new Mock<IStream>();
             GetMock<IStreamCompressor>().Setup(x => x.Decompress(filestream.Object)).Returns(decompressed.Object);
 
-            var bytes = Fixture.CreateMany<byte>().ToArray();
+            var bytes = Dummy.CreateMany<byte>().ToArray();
             decompressed.Setup(x => x.ToArray()).Returns(bytes);
 
             //Act
@@ -219,7 +219,7 @@ public class FileLoaderTester
         public void WhenPathIsValid_ReturnDecompressedMemoryStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -238,7 +238,7 @@ public class FileLoaderTester
         public void Always_DisposeFileStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -257,7 +257,7 @@ public class FileLoaderTester
         public void Always_DisposeMemoryStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -295,12 +295,12 @@ public class FileLoaderTester
         public void WhenPathIsValid_ConvertToText()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
 
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var encoded = Encoding.UTF8.GetBytes(text);
             filestream.Setup(x => x.ToArray()).Returns(encoded);
 
@@ -315,12 +315,12 @@ public class FileLoaderTester
         public void Always_DisposeFileStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
 
-            var text = Fixture.Create<string>();
+            var text = Dummy.Create<string>();
             var encoded = Encoding.UTF8.GetBytes(text);
             filestream.Setup(x => x.ToArray()).Returns(encoded);
 
@@ -355,12 +355,12 @@ public class FileLoaderTester
         public void WhenPathIsValid_ConvertToArrayOfBytes()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
 
-            var bytes = Fixture.CreateMany<byte>().ToArray();
+            var bytes = Dummy.CreateMany<byte>().ToArray();
             filestream.Setup(x => x.ToArray()).Returns(bytes);
 
             //Act
@@ -374,7 +374,7 @@ public class FileLoaderTester
         public void Always_DisposeFileStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);
@@ -382,7 +382,7 @@ public class FileLoaderTester
             var memoryStream = new Mock<IMemoryStream>();
             filestream.Setup(x => x.ToMemoryStream()).Returns(memoryStream.Object);
 
-            var bytes = Fixture.CreateMany<byte>().ToArray();
+            var bytes = Dummy.CreateMany<byte>().ToArray();
             memoryStream.As<IStream>().Setup(x => x.ToArray()).Returns(bytes);
 
             //Act
@@ -415,7 +415,7 @@ public class FileLoaderTester
         public void WhenPathIsValid_ReturnStream()
         {
             //Arrange
-            var path = Fixture.Create<string>();
+            var path = Dummy.Create<string>();
 
             var filestream = new Mock<IFileStream>();
             GetMock<IStreamFactory>().Setup(x => x.FileStream(path, FileMode.Open)).Returns(filestream.Object);

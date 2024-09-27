@@ -7,14 +7,14 @@ public class FileFetcherTest : Tester<FileFetcher>
     {
         base.InitializeTest();
         GetMock<IOptions<FileFetchOptions>>().Setup(x => x.Value).Returns(new FileFetchOptions());
-        Fixture.Register(() => new[] { UriKind.Absolute, UriKind.Relative });
+        Dummy.Exclude(UriKind.RelativeOrAbsolute);
     }
 
     [TestMethod]
     public void FetchWithFileExtensions_WhenPathIsNull_Throw() => Ensure.WhenIsNullOrWhiteSpace(path =>
     {
         //Arrange
-        var fileExtensions = Fixture.CreateMany<string>().ToArray();
+        var fileExtensions = Dummy.CreateMany<string>().ToArray();
 
         //Act
         var action = () => Instance.Fetch(path, fileExtensions);
@@ -27,8 +27,8 @@ public class FileFetcherTest : Tester<FileFetcher>
     public void FetchWithFileExtensions_WhenDirectoryDoesNotExist_ReturnEmpty()
     {
         //Arrange
-        var path = Fixture.Create<string>();
-        var fileExtensions = Fixture.CreateMany<string>().ToArray();
+        var path = Dummy.Create<string>();
+        var fileExtensions = Dummy.CreateMany<string>().ToArray();
 
         GetMock<IDirectory>().Setup(x => x.Exists(It.IsAny<string>())).Returns(true);
         GetMock<IDirectory>().Setup(x => x.Exists(path)).Returns(false);
@@ -44,15 +44,15 @@ public class FileFetcherTest : Tester<FileFetcher>
     public void FetchWithFileExtensions_WhenDirectoryExistsAndFileExtensionsEmpty_ReturnAllFiles()
     {
         //Arrange
-        var defaultOptions = Fixture.Create<FileFetchOptions>();
+        var defaultOptions = Dummy.Create<FileFetchOptions>();
         GetMock<IOptions<FileFetchOptions>>().Setup(x => x.Value).Returns(defaultOptions);
 
-        var path = Fixture.Create<string>();
+        var path = Dummy.Create<string>();
         var fileExtensions = Array.Empty<string>();
 
         GetMock<IDirectory>().Setup(x => x.Exists(path)).Returns(true);
 
-        var files = Fixture.CreateMany<string>().ToList();
+        var files = Dummy.Path.CreateMany().ToList();
         GetMock<IDirectory>().Setup(x => x.EnumerateFiles(path, "*.*", defaultOptions.SearchKind)).Returns(files);
 
         //Act
@@ -66,18 +66,18 @@ public class FileFetcherTest : Tester<FileFetcher>
     public void FetchWithFileExtensions_WhenDirectoryExistsAndFileExtensionsNotEmpty_ReturnOnlyFilesWithExtensions()
     {
         //Arrange
-        var defaultOptions = Fixture.Create<FileFetchOptions>();
+        var defaultOptions = Dummy.Create<FileFetchOptions>();
         GetMock<IOptions<FileFetchOptions>>().Setup(x => x.Value).Returns(defaultOptions);
 
-        var path = Fixture.Create<string>();
-        var fileExtensions = Fixture.CreateMany<string>().ToArray();
+        var path = Dummy.Create<string>();
+        var fileExtensions = Dummy.CreateMany<string>().ToArray();
 
         GetMock<IDirectory>().Setup(x => x.Exists(path)).Returns(true);
 
-        var files = Fixture.CreateMany<string>().ToList();
+        var files = Dummy.Path.CreateMany().ToList();
         GetMock<IDirectory>().Setup(x => x.EnumerateFiles(path, "*.*", defaultOptions.SearchKind)).Returns(files);
 
-        var filesWithExtension = Fixture.CreateMany<string>().ToList();
+        var filesWithExtension = Dummy.Path.WithFileName.WithExtension.OneOf(fileExtensions).CreateMany().ToList();
         foreach (var file in filesWithExtension)
             GetMock<IPath>().Setup(x => x.GetExtensionWithoutDot(file)).Returns(fileExtensions.GetRandom());
 
@@ -94,7 +94,7 @@ public class FileFetcherTest : Tester<FileFetcher>
     public void FetchWithOptions_WhenPathIsNull_Throw() => Ensure.WhenIsNullOrWhiteSpace(path =>
     {
         //Arrange
-        var options = Fixture.Create<FileFetchOptions>();
+        var options = Dummy.Create<FileFetchOptions>();
 
         //Act
         var action = () => Instance.Fetch(path, options);
@@ -107,8 +107,8 @@ public class FileFetcherTest : Tester<FileFetcher>
     public void FetchWithOptions_WhenDirectoryDoesNotExist_ReturnEmpty()
     {
         //Arrange
-        var path = Fixture.Create<string>();
-        var options = Fixture.Create<FileFetchOptions>();
+        var path = Dummy.Create<string>();
+        var options = Dummy.Create<FileFetchOptions>();
 
         GetMock<IDirectory>().Setup(x => x.Exists(It.IsAny<string>())).Returns(true);
         GetMock<IDirectory>().Setup(x => x.Exists(path)).Returns(false);
@@ -124,12 +124,12 @@ public class FileFetcherTest : Tester<FileFetcher>
     public void FetchWithOptions_WhenDirectoryExistsAndFileExtensionsEmpty_ReturnAllFiles()
     {
         //Arrange
-        var path = Fixture.Create<string>();
-        var options = Fixture.Build<FileFetchOptions>().With(x => x.FileExtensions, ImmutableList<string>.Empty).Create();
+        var path = Dummy.Create<string>();
+        var options = Dummy.Build<FileFetchOptions>().With(x => x.FileExtensions, ImmutableList<string>.Empty).Create();
 
         GetMock<IDirectory>().Setup(x => x.Exists(path)).Returns(true);
 
-        var files = Fixture.CreateMany<string>().ToList();
+        var files = Dummy.Path.CreateMany().ToList();
         GetMock<IDirectory>().Setup(x => x.EnumerateFiles(path, "*.*", options.SearchKind)).Returns(files);
 
         //Act
@@ -143,15 +143,15 @@ public class FileFetcherTest : Tester<FileFetcher>
     public void FetchWithOptions_WhenDirectoryExistsAndFileExtensionsNotEmpty_ReturnOnlyFilesWithExtensions()
     {
         //Arrange
-        var path = Fixture.Create<string>();
-        var options = Fixture.Create<FileFetchOptions>();
+        var path = Dummy.Create<string>();
+        var options = Dummy.Create<FileFetchOptions>();
 
         GetMock<IDirectory>().Setup(x => x.Exists(path)).Returns(true);
 
-        var files = Fixture.CreateMany<string>().ToList();
+        var files = Dummy.Path.CreateMany().ToList();
         GetMock<IDirectory>().Setup(x => x.EnumerateFiles(path, "*.*", options.SearchKind)).Returns(files);
 
-        var filesWithExtension = Fixture.CreateMany<string>().ToList();
+        var filesWithExtension = Dummy.Path.WithFileName.WithExtension.OneOf(options.FileExtensions.ToArray()).CreateMany().ToList();
         foreach (var file in filesWithExtension)
             GetMock<IPath>().Setup(x => x.GetExtensionWithoutDot(file)).Returns(options.FileExtensions.GetRandom());
 
