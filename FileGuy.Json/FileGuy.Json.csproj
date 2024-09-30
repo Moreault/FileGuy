@@ -26,7 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ToolBX.AutoInject" Version="3.0.0" />
+		<PackageReference Include="ToolBX.AutoInject" Version="3.0.1" />
 		<PackageReference Include="ToolBX.NetAbstractions" Version="3.0.0" />
 	</ItemGroup>
 
