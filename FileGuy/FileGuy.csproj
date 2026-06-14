@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<RootNamespace>ToolBX.$(AssemblyName)</RootNamespace>
+		<IsAotCompatible>true</IsAotCompatible>
 		<PackageId>ToolBX.$(AssemblyName)</PackageId>
 		<Authors>Mathieu Moreault</Authors>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -12,17 +13,18 @@
 		<PackageProjectUrl>https://github.com/Moreault/FileGuy</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>High-level API for handling files.</Description>
-		<Version>3.0.0</Version>
+		<Version>4.0.0-beta.1</Version>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<Product>ToolBX.$(AssemblyName)</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>fileguy.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ToolBX.AutoConfig" Version="3.0.0" />
-		<PackageReference Include="ToolBX.AutoInject" Version="3.0.1" />
-		<PackageReference Include="ToolBX.DescriptiveEnums" Version="3.0.0" />
-		<PackageReference Include="ToolBX.NetAbstractions" Version="3.0.0" />
+		<PackageReference Include="ToolBX.AutoConfig" Version="4.0.0-beta1" />
+		<PackageReference Include="ToolBX.AutoInject" Version="4.0.0-beta.2" />
+		<PackageReference Include="ToolBX.DescriptiveEnums" Version="4.0.0-beta.1" />
+		<PackageReference Include="ToolBX.NetAbstractions" Version="4.0.0-beta.1" />
 	</ItemGroup>
 
 	<ItemGroup>

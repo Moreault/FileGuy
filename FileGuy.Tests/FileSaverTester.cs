@@ -142,7 +142,7 @@ public class FileSaverTester
             var action = () => Instance.Save(text, path, options);
 
             //Assert
-            action.Should().Throw<Exception>(string.Format(Exceptions.FileAlreadyExists, path));
+            action.Should().Throw<Exception>();
         }
 
         [TestMethod]
@@ -394,7 +394,7 @@ public class FileSaverTester
             var action = () => Instance.Save(file, path, options);
 
             //Assert
-            action.Should().Throw<Exception>(string.Format(Exceptions.FileAlreadyExists, path));
+            action.Should().Throw<Exception>();
         }
 
         [TestMethod]
@@ -631,7 +631,7 @@ public class FileSaverTester
             var action = () => Instance.Save(stream.Object, path, options);
 
             //Assert
-            action.Should().Throw<Exception>(string.Format(Exceptions.FileAlreadyExists, path));
+            action.Should().Throw<Exception>();
         }
 
         [TestMethod]
