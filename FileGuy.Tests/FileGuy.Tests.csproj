@@ -17,8 +17,8 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="WhiteJackalStudio.TestTools" Version="2.0.0-beta.2" />
-		<PackageReference Include="ToolBX.Eloquentest.Dummies" Version="4.0.0-beta.2" />
-		<PackageReference Include="ToolBX.OPEX" Version="4.0.0-beta.1" />
+		<PackageReference Include="ToolBX.Eloquentest.Dummies" Version="4.0.0" />
+		<PackageReference Include="ToolBX.OPEX" Version="4.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
