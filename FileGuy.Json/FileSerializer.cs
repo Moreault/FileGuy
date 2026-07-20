@@ -14,7 +14,7 @@ public interface IFileSerializer
     /// <summary>
     /// Serializes <paramref name="o"/> to file using source-generated metadata. This overload is trimming and Native AOT safe.
     /// </summary>
-    void Serialize<T>(T o, string filename, JsonTypeInfo<T> jsonTypeInfo, FileSerializerOptions? options = null);
+    void Serialize<T>(T o, string filename, JsonTypeInfo<T> jsonTypeInfo, FileSaveOptions? options = null);
 
     [RequiresUnreferencedCode(FileSerializer.ReflectionRequirementMessage)]
     [RequiresDynamicCode(FileSerializer.ReflectionRequirementMessage)]
