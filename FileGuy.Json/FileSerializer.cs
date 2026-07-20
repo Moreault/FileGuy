@@ -64,7 +64,7 @@ public sealed class FileSerializer : IFileSerializer
         _fileSaver.Save(json, filename, options);
     }
 
-    public void Serialize<T>(T o, string filename, JsonTypeInfo<T> jsonTypeInfo, FileSerializerOptions? options = null)
+    public void Serialize<T>(T o, string filename, JsonTypeInfo<T> jsonTypeInfo, FileSaveOptions? options = null)
     {
         if (o == null) throw new ArgumentNullException(nameof(o));
         if (string.IsNullOrWhiteSpace(filename)) throw new ArgumentNullException(nameof(filename));
