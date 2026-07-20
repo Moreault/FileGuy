@@ -27,6 +27,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="ToolBX.Reflection4Humans.Extensions" Version="4.0.0" />
+		<PackageReference Include="ToolBX.Reflection4Humans.TypeFetcher" Version="4.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

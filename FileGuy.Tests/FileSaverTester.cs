@@ -142,7 +142,7 @@ public class FileSaverTester
             var action = () => Instance.Save(text, path, options);
 
             //Assert
-            action.Should().Throw<Exception>();
+            action.Should().Throw<Exception>().WithMessage(string.Format(Exceptions.FileAlreadyExists, path));
         }
 
         [TestMethod]
