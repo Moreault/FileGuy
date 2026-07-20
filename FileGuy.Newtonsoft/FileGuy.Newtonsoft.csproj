@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<RootNamespace>ToolBX.$(AssemblyName)</RootNamespace>
@@ -12,7 +12,8 @@
 		<PackageProjectUrl>https://github.com/Moreault/FileGuy</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>Adds a FileSerializer service which takes advantage of FileGuy's features to serialize objects to file using Newtonsoft's Json.NET library.</Description>
-		<Version>3.0.0</Version>
+		<Version>4.0.0</Version>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>fileguy.png</PackageIcon>
 	</PropertyGroup>
@@ -25,7 +26,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="ToolBX.Reflection4Humans.Extensions" Version="4.0.0" />
+		<PackageReference Include="ToolBX.Reflection4Humans.TypeFetcher" Version="4.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

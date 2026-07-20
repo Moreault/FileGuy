@@ -1,7 +1,8 @@
 // Global using directives
 
 global using FileGuy.Newtonsoft.Tests.Dummies;
-global using FluentAssertions;
+global using ToolBX.AssertBox;
+global using ToolBX.AssertBox.Assertions;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
 global using Newtonsoft.Json;
